@@ -3,6 +3,6 @@ module.exports = {
       domains: ['facebookbrand.com','drive.google.com','source.unsplash.com'],
     },
     devIndicators: {
-      autoPrerender: true,
+      autoPrerender: false,
     },
   }

@@ -1,11 +1,20 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useIntersection } from "react-use";
 import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const MainDiv = styled.div`
   width: 100vw;
   height: 100vh;
+`;
+const StyledWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  bottom: 0;
 `;
 
 const sliders = [
@@ -42,66 +51,52 @@ const CategoryText = styled(motion.div)`
   align-items: center;
 `;
 
-const StyledWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  bottom: 0;
-`;
+const HomeProjectItem = ({ project, onActive }) => {
+  // const ref = useRef();
 
-const variants = {
-  visible: { opacity: 1, y: 0 },
-  hidden: { opacity: 0, y: 100 },
-};
+  // const intersection = useIntersection(ref, {
+  //   root: null,
+  //   rootMargin: "0px",
+  //   threshold: 1,
+  // });
 
-const HomeProjectItem = ({ project }) => {
-  const ref = useRef();
-
-  return (
-    <MainDiv>
-      <StyledWrapper
-        ref={ref}
-        style={{ backgroundImage: `url(${project.image})` }}
-      />
-    </MainDiv>
-  );
-};
-
-function StickySlider() {
-  const divRef = useRef(null);
-
-
-  const [projectIndex, setProjectIndex] = useState(-1);
-
-  const intersection1 = useIntersection(divRef, {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1,
+  // useEffect(() => {
+  //   if (intersection && intersection.intersectionRatio < 1)
+  //     console.log("Obscured");
+  // }, [intersection]);
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0.5,
   });
 
-  // intersection && intersection.intersectionRatio < 1 ? fadeOut() : fadeIn();
+  useEffect(() => {
+    if (inView) {
+      onActive(project.text);
+    }
+  }, [inView]);
+
+  return (
+    // <MainDiv>
+    <StyledWrapper
+      ref={ref}
+      style={{ backgroundImage: `url(${project.image})` }}
+    ></StyledWrapper>
+    // </MainDiv>
+  );
+};
+function StickySlider() {
+  const [project, setProject] = useState();
 
   return (
     <>
       {sliders.map((slider) => (
-        <HomeProjectItem project={slider} />
+        <HomeProjectItem project={slider} onActive={setProject} />
       ))}
-      {projectIndex >= 0 && (
-        <CategoryDiv
-          initial="hidden"
-          exit="hidden"
-          variants={variants}
-          animate={
-            intersection && intersection.intersectionRatio < 1
-              ? "hidden"
-              : "visible"
-          }
-          transition={{ duration: 0.2, ease: [0.6, 0.05, -0.01, 0.9] }}
-        >
+
+      {project && (
+        <CategoryDiv>
           <AnimatePresence>
-            <CategoryText>{sliders[projectIndex].text}</CategoryText>
+            <CategoryText>{project}</CategoryText>
           </AnimatePresence>
         </CategoryDiv>
       )}

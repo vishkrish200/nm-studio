@@ -21,6 +21,7 @@ const HeroText = styled(motion.div)`
   height: 100vh;
   color: white;
   font-size: 10rem;
+  overflow-wrap: break-word;
 `;
 
 const variants = {
