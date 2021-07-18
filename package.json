@@ -8,11 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.13",
-    "@chakra-ui/react": "^1.6.3",
+    "@chakra-ui/icons": "^1.0.14",
+    "@chakra-ui/react": "^1.6.5",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
-    "@heroicons/react": "^1.0.1",
+    "@heroicons/react": "^1.0.2",
     "framer-motion": "^4.1.17",
     "hamburger-react": "^2.4.1",
     "next": "10.2.3",
