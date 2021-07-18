@@ -14,7 +14,7 @@ export const NavBackground = styled(motion.nav)`
 
 export const ItemLink = styled(motion.a)`
   display: inline-flexbox;
-  font-size: 10vh;
+  font-size: 8vh;
   color: #ffffff;
   padding: 1vw 2vh;
   margin: 1vw 2vh;

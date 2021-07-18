@@ -1,15 +1,13 @@
 import Navigation from "../components/Navigation";
-import Hero from "../components/Hero";
 import Footer from "../components/Footer";
-import StickySlider from "../components/StickySlider";
+import HomePage2 from "../components/HomePage2";
 
 export default function Home() {
   return (
     <>
-        <Navigation />
-        <Hero />
-        <StickySlider />
-        <Footer>This is the footer</Footer>
+      <Navigation />
+      <HomePage2 />
+      <Footer />
     </>
   );
 }

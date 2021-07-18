@@ -6,7 +6,6 @@ const FooterDiv = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
-  height: 50vh;
   background-color: black;
   color: white;
   display: flex;

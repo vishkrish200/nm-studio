@@ -6,6 +6,14 @@ import { NavBackground, ItemLink, List } from "../styles/NavigationStyles";
 import { AnimatePresence } from "framer-motion";
 
 function Navigation() {
+  const Items = [
+    { route: "Art", text: "Art" },
+    { route: "Architecture", text: "Architecture" },
+    { route: "Design", text: "Design" },
+    { route: "About", text: "About Us" },
+    { route: "Contact", text: "Get In Touch" },
+  ];
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebarOpen = () => setSidebarOpen(!sidebarOpen);
 
@@ -22,27 +30,19 @@ function Navigation() {
           transition={{ duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] }}
         >
           <List>
-            <li>
-              <Link href="/About">
-                <ItemLink whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                  About Us.
-                </ItemLink>
-              </Link>
-            </li>
-            <li>
-              <Link href="/Projects">
-                <ItemLink whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                  Our Work.
-                </ItemLink>
-              </Link>
-            </li>
-            <li>
-              <Link href="/Contact">
-                <ItemLink whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-                  Contact Us.
-                </ItemLink>
-              </Link>
-            </li>
+            {Items &&
+              Items.map((Item) => (
+                <li>
+                  <Link href={`/${Item.route}`}>
+                    <ItemLink
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      {Item.text}
+                    </ItemLink>
+                  </Link>
+                </li>
+              ))}
           </List>
         </NavBackground>
       </AnimatePresence>

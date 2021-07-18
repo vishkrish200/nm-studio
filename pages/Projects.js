@@ -8,9 +8,13 @@ const Title = styled.h1`
   align-items: center;
 `;
 
-export default function Projects({ projects }) {
-  // console.log(projects);
+const Categories = [
+  { text: "Art" },
+  { text: "Architecture" },
+  { text: "Design" },
+];
 
+export default function Projects({ projects }) {
   return (
     <div>
       <Navigation />
