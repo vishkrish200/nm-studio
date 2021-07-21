@@ -10,16 +10,29 @@ const HeroImage = styled.div`
   height: 100vh;
   z-index: 500;
   width: 100vw;
-`;
-
-const HeroText = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  flex-direction: column;
+`;
+
+const HeroTitle = styled(motion.div)`
   color: white;
   font-size: 10rem;
+  text-align: center;
+  font-weight: lighter;
   overflow-wrap: break-word;
+  line-height: 1;
+  padding-bottom: 2vh;
+`;
+
+const HeroSubTitle = styled(motion.div)`
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: lighter;
+  overflow-wrap: break-word;
+  width: 50%;
 `;
 
 const variants = {
@@ -28,29 +41,35 @@ const variants = {
 };
 
 export default function Hero() {
-  // const { ref, inView } = useInView({
-  //   threshold: 0.9,
-  // });
-
-  // useEffect(() => {
-  //   if (inView) {
-  //     setProject(null);
-  //   }
-  // }, [inView]);
-
   return (
-    <div>
+    <>
       <HeroImage>
-          <HeroText
-            initial="hidden"
-            variants={variants}
-            animate={"visible"}
-            transition={{ duration: 0.7, fade: [0.6, 0.05, -0.01, 0.9] }}
-          >
-            {" "}
-            We Are NM Studio
-          </HeroText>
+        <HeroTitle
+          initial="hidden"
+          variants={variants}
+          animate={"visible"}
+          transition={{ duration: 0.7, fade: [0.6, 0.05, -0.01, 0.9] }}
+        >
+          {/* {" "} */}
+          We Are
+          <br />
+          <b> NM Studio</b>
+        </HeroTitle>
+        <HeroSubTitle
+          initial="hidden"
+          variants={variants}
+          animate={"visible"}
+          transition={{
+            duration: 0.7,
+            delay: 0.5,
+            fade: [0.6, 0.05, -0.01, 0.9],
+          }}
+        >
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+          sed diam voluptua. At vero eos et accusam et
+        </HeroSubTitle>
       </HeroImage>
-    </div>
+    </>
   );
 }

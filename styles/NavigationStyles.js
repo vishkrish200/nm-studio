@@ -7,14 +7,14 @@ export const NavBackground = styled(motion.nav)`
   right: 0;
   background-color: black;
   height: 100vh;
-  width: 100vw;
+  width: 50vw;
   overflow: hidden;
   z-index: 999;
 `;
 
 export const ItemLink = styled(motion.a)`
   display: inline-flexbox;
-  font-size: 8vh;
+  font-size: 3rem;
   color: #ffffff;
   padding: 1vw 2vh;
   margin: 1vw 2vh;
@@ -27,7 +27,7 @@ export const ItemLink = styled(motion.a)`
     transparent 50%,
     #ffffff 50%
   );
-  background-size: 240%;
+  background-size: 260%;
   transition: all 0.5s;
   &:hover,
   &:active {
