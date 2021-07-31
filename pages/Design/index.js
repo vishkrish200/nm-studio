@@ -1,4 +1,4 @@
-import Navigation from "../components/Navigation";
+import Navigation from "../../components/Navigation";
 import styled from "styled-components";
 
 const Page = styled.div`
@@ -6,6 +6,11 @@ const Page = styled.div`
 `;
 
 const HeroDiv = styled.div`
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("https://source.unsplash.com/weekly?design/1600x900");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vh;
   width: 100vw;
 `;
@@ -70,37 +75,57 @@ const Projects = [
 const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto;
 `;
 
 const Project = styled.div`
   grid-column: ${({ index }) => ((index + 1) % 3 === 0 ? "span 2 /span 2" : 0)};
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 10%;
+  /* padding: 10%; */
 `;
 const Image = styled.img.attrs(({ image }) => ({
   src: image.url,
 }))`
-  width: ${({ index }) => ((index + 1) % 3 === 0 ? "1200px" : "600px")};
-  height: 80%;
+  z-index: 0;
+
+  width: ${({ index }) => ((index + 1) % 3 === 0 ? "1000px" : "600px")};
+  height: ${({ index }) => ((index + 1) % 3 === 0 ? "400px" : "100%")};
 `;
 
 const ProjectTitle = styled.div`
+  position: absolute;
+  /* top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; */
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  font-size: 1.5rem;
+  bottom: 0;
   text-align: center;
+  height: 10%;
+  width: 100%;
+  /* padding-bottom: 5vh; */
+  /* z-index: 1; */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
   color: white;
 `;
 
-export default function Art() {
+export default function Design() {
   return (
     <>
       <Page>
         <Navigation />
         <HeroDiv>
           <HeadingDiv>
-            <GreekTitle>/ɑː(r)t/</GreekTitle>
-            <Title>ART</Title>
+            <GreekTitle>/dɪˈzʌɪn/</GreekTitle>
+            <Title>DESIGN</Title>
             <SubTitle>noun</SubTitle>
             <Definition>Beautiful Functionality</Definition>
             <Arrow />

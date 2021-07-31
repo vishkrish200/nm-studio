@@ -16,7 +16,8 @@ const GlobalStyles = createGlobalStyle`
     /* background: #0D0C1D; */
     /* color: #EFFFFA; */
     /* display: flex; */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+    font-family:'Gothic',sans-serif;
     /* height: 100vh; */
     /* justify-content: center; */
     text-rendering: optimizeLegibility;

@@ -7,10 +7,10 @@ import { AnimatePresence } from "framer-motion";
 
 function Navigation() {
   const Items = [
+    { route: "About", text: "About Us" },
     { route: "Art", text: "Art" },
     { route: "Architecture", text: "Architecture" },
     { route: "Design", text: "Design" },
-    { route: "About", text: "About Us" },
     { route: "Contact", text: "Get In Touch" },
   ];
 

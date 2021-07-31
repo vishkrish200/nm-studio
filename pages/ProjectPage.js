@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 const Page = styled.div`
   background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 const ProjectHero = styled.div`
@@ -25,11 +29,52 @@ const ProjectTitle = styled.div`
   text-align: center;
 `;
 
-const ProjectDescription = styled.div`
+const ProjectSubtitle = styled.div`
   width: 50%;
   color: white;
   text-align: center;
 `;
+const ProjectDescription = styled.div`
+  margin: 10%;
+  width: 50%;
+  color: white;
+  text-align: center;
+`;
+const PictureGallery = styled.div`
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+`;
+const Picture = styled.div`
+  grid-row: ${({ index }) => (index == 0 ? "span 2 /span 2" : "0")};
+  margin: 5%;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const textfields = [
+  {
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,sed diam voluptua. At vero eos et accusam et justo duo dolores et earebum. Stet clita kasd gubergren, no sea takimata sanctus est Loremipsum dolor sit amet. Lorem ipsum",
+  },
+  {
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,sed diam voluptua. At vero eos et accusam et justo duo dolores et earebum. Stet clita kasd gubergren, no sea takimata sanctus est Loremipsum dolor sit amet. Lorem ipsum",
+  },
+  {
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,sed diam voluptua. At vero eos et accusam et justo duo dolores et earebum. Stet clita kasd gubergren, no sea takimata sanctus est Loremipsum dolor sit amet. Lorem ipsum",
+  },
+];
+
+const Images = [
+  { url: "https://source.unsplash.com/random" },
+  { url: "https://source.unsplash.com/random" },
+  { url: "https://source.unsplash.com/random" },
+];
 
 function ProjectPage() {
   return (
@@ -38,14 +83,31 @@ function ProjectPage() {
         <Navigation />
         <ProjectHero>
           <ProjectTitle>PROJECT NAME</ProjectTitle>
-          <ProjectDescription>
+          <ProjectSubtitle>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
             erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
             et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
             Lorem ipsum dolor sit amet. Lorem ipsum
-          </ProjectDescription>
+          </ProjectSubtitle>
         </ProjectHero>
+        {textfields &&
+          textfields.map((textfield) => (
+            <>
+              <ProjectDescription>{textfield.description}</ProjectDescription>
+              <PictureGallery>
+                {Images &&
+                  Images.map((Image, index) => (
+                    <Picture index={index}>
+                      <img
+                        src={Image.url}
+                        width={index == 0 ? "400px" : "200px"}
+                      />
+                    </Picture>
+                  ))}
+              </PictureGallery>
+            </>
+          ))}
       </Page>
     </>
   );

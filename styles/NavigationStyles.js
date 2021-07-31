@@ -7,9 +7,12 @@ export const NavBackground = styled(motion.nav)`
   right: 0;
   background-color: black;
   height: 100vh;
-  width: 50vw;
-  overflow: hidden;
+  width: 50%;
   z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const ItemLink = styled(motion.a)`
@@ -38,9 +41,13 @@ export const ItemLink = styled(motion.a)`
 `;
 
 export const List = styled.ul`
-  position: absolute;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; */
   text-align: center;
 `;
