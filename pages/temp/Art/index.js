@@ -1,5 +1,7 @@
-import Navigation from "../../components/Navigation";
+import Navigation from "../../../components/Navigation";
 import styled from "styled-components";
+import { fetchAPI } from "../../../lib/api";
+import { getStrapiMedia } from "../../../lib/media";
 
 const Page = styled.div`
   background-color: black;
@@ -7,7 +9,7 @@ const Page = styled.div`
 
 const HeroDiv = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url("https://source.unsplash.com/weekly?design/1600x900");
+    url("https://source.unsplash.com/weekly?art/1600x900");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -63,15 +65,6 @@ const Arrow = styled.i`
   -webkit-transform: rotate(45deg);
 `;
 
-const Projects = [
-  { url: "https://source.unsplash.com/random", name: "Project Name" },
-  { url: "https://source.unsplash.com/random", name: "Project Name" },
-  { url: "https://source.unsplash.com/random", name: "Project Name" },
-  { url: "https://source.unsplash.com/random", name: "Project Name" },
-  { url: "https://source.unsplash.com/random", name: "Project Name" },
-  { url: "https://source.unsplash.com/random", name: "Project Name" },
-];
-
 const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -85,13 +78,13 @@ const Project = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 10%;
-  /* padding: 10%; */
+  margin: 10% 0;
 `;
 const Image = styled.img.attrs(({ image }) => ({
-  src: image.url,
+  src: getStrapiMedia(image.Thumbnail),
 }))`
   z-index: 0;
+  object-fit: cover;
 
   width: ${({ index }) => ((index + 1) % 3 === 0 ? "1000px" : "600px")};
   height: ${({ index }) => ((index + 1) % 3 === 0 ? "400px" : "100%")};
@@ -99,48 +92,64 @@ const Image = styled.img.attrs(({ image }) => ({
 
 const ProjectTitle = styled.div`
   position: absolute;
-  /* top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0; */
-  /* top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   font-size: 1.5rem;
   bottom: 0;
   text-align: center;
   height: 10%;
   width: 100%;
-  /* padding-bottom: 5vh; */
-  /* z-index: 1; */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
   color: white;
 `;
 
-export default function Design() {
+export default function Art({ projects, imageUrl }) {
   return (
     <>
       <Page>
         <Navigation />
         <HeroDiv>
           <HeadingDiv>
-            <GreekTitle>/dɪˈzʌɪn/</GreekTitle>
-            <Title>DESIGN</Title>
+            <GreekTitle>/ɑː(r)t/</GreekTitle>
+            <Title>ART</Title>
             <SubTitle>noun</SubTitle>
             <Definition>Beautiful Functionality</Definition>
             <Arrow />
           </HeadingDiv>
         </HeroDiv>
         <ProjectsGrid>
-          {Projects &&
-            Projects.map((project, index) => (
+          {projects &&
+            projects.map((project, index) => (
               <Project index={index} image={project}>
                 <Image image={project} index={index} />
-                <ProjectTitle>{project.name}</ProjectTitle>
+                <ProjectTitle>{project.Title}</ProjectTitle>
               </Project>
             ))}
         </ProjectsGrid>
       </Page>
     </>
   );
+}
+
+// export async function getStaticPaths() {
+//   const categories = await fetchAPI("/categories");
+
+//   return {
+//     paths: categories.map((category) => ({
+//       params: {
+//         slug: category.slug,
+//       },
+//     })),
+//     fallback: false,
+//   };
+// }
+
+export async function getStaticProps() {
+  // const category = (await fetchAPI(`/categories?slug=${params.slug}`))[0];
+  // const categories = await fetchAPI("/categories");
+  const projects = await fetchAPI("/projects?category.Name=Art");
+  return {
+    props: {
+      projects,
+      // category,
+    },
+  };
 }

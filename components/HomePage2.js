@@ -4,8 +4,8 @@ import Link from "next/link";
 
 const Items = [
   { route: "Art", text: "Art" },
-  { route: "Architecture", text: "Architecture" },
   { route: "Design", text: "Design" },
+  { route: "Architecture", text: "Architecture" },
 ];
 
 const Page = styled.div`
@@ -16,7 +16,7 @@ const Page = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   height: 200vh;
-  `;
+`;
 
 const SecondHalf = styled.div`
   /* width: 100%; */
@@ -25,6 +25,7 @@ const SecondHalf = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
+  font-size: 1.25rem;
 `;
 
 const LeftBox = styled.div`
@@ -74,7 +75,7 @@ function HomePage2() {
             {Items &&
               Items.map((Item) => (
                 <Categories>
-                  <Link href={`/${Item.route}`}>{Item.text}</Link>
+                  <Link href={`/Category/${Item.route}`}>{Item.text}</Link>
                 </Categories>
               ))}
           </LeftBox>

@@ -8,9 +8,9 @@ import { AnimatePresence } from "framer-motion";
 function Navigation() {
   const Items = [
     { route: "About", text: "About Us" },
-    { route: "Art", text: "Art" },
-    { route: "Architecture", text: "Architecture" },
-    { route: "Design", text: "Design" },
+    { route: "Category/Art", text: "Art" },
+    { route: "Category/Architecture", text: "Architecture" },
+    { route: "Category/Design", text: "Design" },
     { route: "Contact", text: "Get In Touch" },
   ];
 
