@@ -1,5 +1,10 @@
 import "../styles/globals.css";
 import { createGlobalStyle } from "styled-components";
+import { createContext } from "react";
+import { fetchAPI } from "../lib/api";
+import App from "next/app";
+
+export const GlobalContext = createContext({});
 
 const GlobalStyles = createGlobalStyle`
   html, body {
@@ -18,12 +23,22 @@ const GlobalStyles = createGlobalStyle`
   }`;
 
 function MyApp({ Component, pageProps }) {
+  const { categories } = pageProps;
   return (
     <>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <GlobalContext.Provider value={categories}>
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </GlobalContext.Provider>
     </>
   );
 }
+
+MyApp.getInitialProps = async (ctx) => {
+  const appProps = await App.getInitialProps(ctx);
+  const categories = await fetchAPI("/categories");
+  // Pass the data to our page via props
+  return { ...appProps, pageProps: { categories } };
+};
 
 export default MyApp;

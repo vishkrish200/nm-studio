@@ -8,10 +8,10 @@ const Title = styled.h1`
   align-items: center;
 `;
 
-export default function Contact() {
+export default function Contact({ categories }) {
   return (
     <div>
-      <Navigation />
+      <Navigation categories={categories} />
       <Title>Get In Touch Page</Title>
     </div>
   );

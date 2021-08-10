@@ -3,12 +3,16 @@ import { motion } from "framer-motion";
 
 export const NavBackground = styled(motion.nav)`
   position: fixed;
+  background-image: url("/NavBG.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   top: 0;
   right: 0;
   background-color: black;
   height: 100vh;
-  width: 50%;
-  z-index: 999;
+  width: 50vw;
+  z-index: 100;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,27 +21,11 @@ export const NavBackground = styled(motion.nav)`
 
 export const ItemLink = styled(motion.a)`
   display: inline-flexbox;
-  font-size: 3rem;
-  color: #ffffff;
-  padding: 1vw 2vh;
-  margin: 1vw 2vh;
-
+  font-size: 3.25rem;
+  color: white;
+  padding: 2%;
+  margin-block: 4%;
   cursor: pointer;
-  background-color: black;
-  background-image: linear-gradient(
-    120deg,
-    transparent 0%,
-    transparent 50%,
-    #ffffff 50%
-  );
-  background-size: 260%;
-  transition: all 0.5s;
-  &:hover,
-  &:active {
-    background-position: 100%;
-    color: black;
-    transform: translateX(1vh);
-  }
 `;
 
 export const List = styled.ul`
@@ -49,5 +37,6 @@ export const List = styled.ul`
   justify-content: center;
   align-items: center;
   flex-direction: column; */
+  list-style-type: none;
   text-align: center;
 `;

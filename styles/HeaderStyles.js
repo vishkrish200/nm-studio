@@ -15,6 +15,7 @@ export const MenuDiv = styled.div`
   top: 2vh;
   right: 2vw;
   cursor: pointer;
+  z-index: 1001;
 `;
 
 export const LogoDiv = styled.div`

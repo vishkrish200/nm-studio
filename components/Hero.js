@@ -2,11 +2,6 @@ import styled from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 
 const HeroImage = styled.div`
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://source.unsplash.com/WLUHO9A_xik/1600x900");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
   height: 100vh;
   z-index: 500;
   width: 100vw;
@@ -18,7 +13,7 @@ const HeroImage = styled.div`
 
 const HeroTitle = styled(motion.div)`
   color: white;
-  font-size: 10rem;
+  font-size: 11.25rem;
   text-align: center;
   font-weight: lighter;
   overflow-wrap: break-word;

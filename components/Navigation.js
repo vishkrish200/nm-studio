@@ -5,15 +5,7 @@ import Header from "./Header";
 import { NavBackground, ItemLink, List } from "../styles/NavigationStyles";
 import { AnimatePresence } from "framer-motion";
 
-function Navigation() {
-  const Items = [
-    { route: "About", text: "About Us" },
-    { route: "Category/Art", text: "Art" },
-    { route: "Category/Architecture", text: "Architecture" },
-    { route: "Category/Design", text: "Design" },
-    { route: "Contact", text: "Get In Touch" },
-  ];
-
+function Navigation({ categories }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebarOpen = () => setSidebarOpen(!sidebarOpen);
 
@@ -30,19 +22,22 @@ function Navigation() {
           transition={{ duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] }}
         >
           <List>
-            {Items &&
-              Items.map((Item) => (
+            {categories &&
+              categories.map((category) => (
                 <li>
-                  <Link href={`/${Item.route}`}>
-                    <ItemLink
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      {Item.text}
+                  <Link href={`/Category/${category.Name}`}>
+                    <ItemLink whileHover={{ scale: 1.5 }}>
+                      {category.Name}
                     </ItemLink>
                   </Link>
                 </li>
               ))}
+            <Link href={"/About"}>
+              <ItemLink whileHover={{ scale: 1.5 }}>About Us</ItemLink>
+            </Link>
+            <Link href={"/Contact"}>
+              <ItemLink whileHover={{ scale: 1.5 }}>Get In Touch</ItemLink>
+            </Link>
           </List>
         </NavBackground>
       </AnimatePresence>
