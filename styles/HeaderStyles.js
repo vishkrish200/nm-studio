@@ -5,7 +5,7 @@ export const TopNav = styled(motion.nav)`
   background-color: black;
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 10%;
   z-index: 1000;
 `;
@@ -20,8 +20,8 @@ export const MenuDiv = styled.div`
 
 export const LogoDiv = styled.div`
   position: fixed;
-  padding-top: 1%;
-  top: 2%;
-  left: 2%;
+  top: 2vh;
+  left: 2vw;
   cursor: pointer;
+  padding-top: 0.05%;
 `;

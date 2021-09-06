@@ -34,15 +34,15 @@ const LeftBox = styled.div`
   border-color: white;
   text-align: right;
   font-size: 2.25rem;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
+
 const Categories = styled.a`
   margin: auto 0;
-  a:link {
-    color: white;
-  }
-  a:visited {
-    color: white;
-  }
+  margin-right: 5%;
+  color: white;
 `;
 
 const RightBox = styled.div`
@@ -51,13 +51,16 @@ const RightBox = styled.div`
   align-items: flex-start;
   flex-direction: column;
   text-align: left;
-  height: 50vh;
-  padding-left: 2vw;
-  margin-left: 1vw;
+  height: 60vh;
+  padding-left: 5%;
+  margin-left: 1%;
   width: 50%;
   border-left-style: solid;
   border-color: red;
   font-size: 2.25rem;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export default function HomePage2({ categories }) {
@@ -69,11 +72,13 @@ export default function HomePage2({ categories }) {
           <LeftBox>
             {categories &&
               categories.map((category) => (
-                <Categories>
-                  <Link href={`/Category/${category.Name}`}>
-                    {category.Name}
-                  </Link>
-                </Categories>
+                <Link
+                  key={category.Name}
+                  href={`/Category/${category.Name}`}
+                  passHref
+                >
+                  <Categories>{category.Name}</Categories>
+                </Link>
               ))}
           </LeftBox>
           <RightBox>Design is Everything</RightBox>

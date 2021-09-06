@@ -5,8 +5,8 @@ import { getStrapiMedia } from "../../lib/media";
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import { motion } from "framer-motion";
-
 import Picture from "../../components/Picture";
+import Arrow from "../../components/Arrow";
 
 const Page = styled.div`
   background-color: black;
@@ -30,7 +30,7 @@ const HeadingDiv = styled.div`
   flex-direction: column;
   height: 100%;
   color: white;
-  padding-top: 10vh;
+  padding-top: 5%;
   text-align: center;
 `;
 
@@ -61,33 +61,32 @@ const Definition = styled.h3`
   font-weight: 3;
 `;
 
-const Arrow = styled.i`
-  border: solid white;
-  border-width: 0 0.8vh 0.8vh 0;
-  display: inline-block;
-  margin-top: 15vh;
-  padding: 1vh;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-`;
-
 const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 10fr));
   margin: 5%;
   gap: 5%;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 10fr));
+    margin: 5% 2.5%;
+    gap: 2.5%;
+  }
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 const Project = styled(motion.div)`
-  grid-column: ${({ index }) => ((index + 1) % 3 === 0 ? "span 2 /span 2" : 0)};
+  grid-column: ${({ index }) => ((index + 1) % 3 == 0 ? "span 2 /span 2" : 0)};
+  @media (max-width: 768px) {
+    grid-column: span 1 / span 1;
+    min-height: 300px;
+  }
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5% 0;
   cursor: pointer;
-  width: 100%;
-  height: 500px;
+  height: 400px;
   background-image: url(${({ image }) => image});
   background-position: center;
   background-repeat: no-repeat;
@@ -102,10 +101,18 @@ const ProjectTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 20%;
   width: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   color: white;
+`;
+
+const ProjectSubTitle = styled.div`
+  font-size: 0.8rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function CategoryPage({ projects, category, categories }) {
@@ -120,7 +127,7 @@ export default function CategoryPage({ projects, category, categories }) {
             <Title>{category.Name}</Title>
             <SubTitle>noun</SubTitle>
             <Definition>{category.Definition}</Definition>
-            <Arrow />
+            <Arrow marginTop={"10%"} />
           </HeadingDiv>
         </HeroDiv>
         <ProjectsGrid>
@@ -128,11 +135,14 @@ export default function CategoryPage({ projects, category, categories }) {
             projects.map((project, index) => (
               <Link href={`/Project/${project.slug}`}>
                 <Project
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                   index={index}
                   image={getStrapiMedia(project.Thumbnail)}
                 >
-                  <ProjectTitle>{project.Title}</ProjectTitle>
+                  <ProjectTitle>
+                    {project.Title}
+                    <ProjectSubTitle>{project.SubTitle}</ProjectSubTitle>
+                  </ProjectTitle>
                 </Project>
               </Link>
             ))}

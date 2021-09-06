@@ -12,9 +12,12 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     height: 100%;
     width: 100%;
+    scrollbar-width: none;
+    overflow-x:none;
+    /* scroll-behavior: smooth; */
   }
   *, *::after, *::before {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
   }
   body {
     /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */

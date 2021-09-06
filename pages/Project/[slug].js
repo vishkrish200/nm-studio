@@ -9,6 +9,7 @@ import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
 
 import { Gallery, Item } from "react-photoswipe-gallery";
+import Arrow from "../../components/Arrow";
 
 const Page = styled.div`
   background-color: black;
@@ -46,27 +47,23 @@ const ProjectSubtitle = styled.div`
   color: white;
   text-align: center;
 `;
-const Arrow = styled.i`
-  border: solid white;
-  border-width: 0 0.8vh 0.8vh 0;
-  display: inline-block;
-  margin-top: 15%;
-  padding: 1%;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-`;
+
 const ProjectDescription = styled.div`
-  margin: 10% 0;
+  margin: 5% 0;
   width: 100%;
   color: white;
   text-align: center;
 `;
 
 const PictureGallery = styled.div`
+  width: auto;
   height: 100%;
   display: grid;
   grid-template-rows: repeat(2, minmax(0, 1fr));
-  margin: 10% 0;
+  @media (max-width: 768px) {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
+  margin: 10% auto;
   row-gap: 3%;
   column-gap: 1.75%;
   grid-auto-flow: column;
@@ -78,8 +75,15 @@ const Picture = styled.div`
     index % 2 != 0 && (pictureIndex == 0 || pictureIndex == 1)
       ? "9999"
       : "-9999"};
-  width: 500px;
-  height: 100%;
+  @media (max-width: 768px) {
+    grid-row: span 1 / span 1;
+    width: 200px;
+    /* min-height: 200px; */
+  }
+  /* margin: 5%; */
+  min-width: 500px;
+  /* height: auto; */
+  /* height: 100%; */
   min-height: 300px;
   background-image: url(${({ image }) => image});
   background-position: center;
@@ -89,18 +93,7 @@ const Picture = styled.div`
 
 export default function ProjectPage({ project, categories }) {
   const HeroImage = getStrapiMedia(project.Thumbnail);
-  const [currentImage, setCurrentImage] = useState(0);
-  const [viewerIsOpen, setViewerIsOpen] = useState(false);
-
-  const openLightbox = useCallback((event, { photo, index }) => {
-    setCurrentImage(index);
-    setViewerIsOpen(true);
-  }, []);
-
-  const closeLightbox = () => {
-    setCurrentImage(0);
-    setViewerIsOpen(false);
-  };
+  let tIndex = 0;
 
   return (
     <>
@@ -109,48 +102,79 @@ export default function ProjectPage({ project, categories }) {
         <ProjectHero imageUrl={HeroImage}>
           <ProjectTitle>{project.Title}</ProjectTitle>
           <ProjectSubtitle>{project.SubTitle}</ProjectSubtitle>
-          <Arrow />
+          <Arrow marginTop={"10%"} />
         </ProjectHero>
         {project.TextRow.map((textfield, index) => (
           <>
-            <ProjectDescription>{textfield.Description}</ProjectDescription>
-            {}
+            <ProjectDescription>{textfield.Description}</ProjectDescription>(
+            <Gallery>
+              <PictureGallery>
+                {project.Gallery &&
+                  project.Gallery.slice(
+                    index * 3,
+                    index * 3 + 3 > project.Gallery.length
+                      ? project.Gallery.length
+                      : index * 3 + 3
+                  ).map((picture, pictureIndex) => {
+                    tIndex = index;
+                    return (
+                      <Item
+                        original={getStrapiMedia(picture)}
+                        thumbnail={getStrapiMedia(picture.formats.thumbnail)}
+                        width={picture.width}
+                        height={picture.height}
+                      >
+                        {({ ref, open }) => (
+                          <Picture
+                            index={index}
+                            pictureIndex={pictureIndex}
+                            image={getStrapiMedia(picture)}
+                            ref={ref}
+                            onClick={open}
+                          ></Picture>
+                        )}
+                      </Item>
+                    );
+                  })}
+              </PictureGallery>
+            </Gallery>
+            )
+          </>
+        ))}
+        {project.Gallery.length > (tIndex + 1) * 3 ? (
+          <Gallery>
             <PictureGallery>
               {project.Gallery &&
                 project.Gallery.slice(
-                  index * 3,
-                  index * 3 + 3 > project.Gallery.length
-                    ? project.Gallery.length - 1
-                    : index * 3 + 3
-                ).map((pictures, pictureIndex) => {
+                  (tIndex + 1) * 3,
+                  project.Gallery.length
+                ).map((picture, pictureIndex) => {
                   return (
-                    <Picture
-                      index={index}
-                      pictureIndex={pictureIndex}
-                      image={getStrapiMedia(pictures)}
-                    ></Picture>
+                    <>
+                      <Item
+                        original={getStrapiMedia(picture)}
+                        thumbnail={getStrapiMedia(picture.formats.thumbnail)}
+                        width={picture.width}
+                        height={picture.height}
+                      >
+                        {({ ref, open }) => (
+                          <Picture
+                            ref={ref}
+                            onClick={open}
+                            index={tIndex + 1}
+                            pictureIndex={pictureIndex}
+                            image={getStrapiMedia(picture)}
+                          ></Picture>
+                        )}
+                      </Item>
+                    </>
                   );
                 })}
             </PictureGallery>
-          </>
-        ))}
-        {/* <ModalGateway>
-          {viewerIsOpen ? (
-            <Modal onClose={closeLightbox}>
-              <Carousel
-                currentIndex={currentImage}
-                views={photos.map((x) => ({
-                  ...x,
-                  srcset: x.srcSet,
-                  caption: x.title,
-                }))}
-              />
-            </Modal>
-          ) : null}
-        </ModalGateway> */}
-
-        <Footer />
+          </Gallery>
+        ) : null}
       </Page>
+      <Footer />
     </>
   );
 }

@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import Arrow from "./Arrow";
 
-const HeroImage = styled.div`
+const HeroImage = styled(motion.div)`
   height: 100vh;
   z-index: 500;
   width: 100vw;
@@ -12,8 +13,12 @@ const HeroImage = styled.div`
 `;
 
 const HeroTitle = styled(motion.div)`
+  margin-top: 5%;
   color: white;
-  font-size: 11.25rem;
+  font-size: 9.25rem;
+  @media (max-width: 768px) {
+    font-size: 5.75rem;
+  }
   text-align: center;
   font-weight: lighter;
   overflow-wrap: break-word;
@@ -23,10 +28,10 @@ const HeroTitle = styled(motion.div)`
 
 const HeroSubTitle = styled(motion.div)`
   color: white;
-  font-size: 1.5rem;
+  font-size: 1rem;
   text-align: center;
   font-weight: lighter;
-  overflow-wrap: break-word;
+  /* overflow-wrap: break-word; */
   width: 50%;
 `;
 
@@ -45,7 +50,6 @@ export default function Hero() {
           animate={"visible"}
           transition={{ duration: 0.7, fade: [0.6, 0.05, -0.01, 0.9] }}
         >
-          {/* {" "} */}
           We Are
           <br />
           <b> NM Studio</b>
@@ -64,6 +68,7 @@ export default function Hero() {
           nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
           sed diam voluptua. At vero eos et accusam et
         </HeroSubTitle>
+        <Arrow marginTop={"6%"} />
       </HeroImage>
     </>
   );

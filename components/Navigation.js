@@ -6,6 +6,24 @@ import { NavBackground, ItemLink, List } from "../styles/NavigationStyles";
 import { AnimatePresence } from "framer-motion";
 
 function Navigation({ categories }) {
+  const NavItems = [];
+
+  categories &&
+    categories.map((category) => {
+      NavItems.push({
+        name: category.Name,
+        route: `/Category/${category.Name}`,
+      });
+    });
+  NavItems.push({
+    name: "About Us",
+    route: "/About",
+  });
+  NavItems.push({
+    name: "Get In Touch",
+    route: "/Contact",
+  });
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebarOpen = () => setSidebarOpen(!sidebarOpen);
 
@@ -17,27 +35,27 @@ function Navigation({ categories }) {
       <AnimatePresence>
         <NavBackground
           initial={{ x: "100%" }}
-          exit={{ x: "-100%" }}
           animate={{ x: sidebarOpen ? 0 : "100%" }}
           transition={{ duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] }}
         >
           <List>
-            {categories &&
-              categories.map((category) => (
-                <li>
-                  <Link href={`/Category/${category.Name}`}>
-                    <ItemLink whileHover={{ scale: 1.5 }}>
-                      {category.Name}
+            {NavItems &&
+              NavItems.map((NavItem) => (
+                <li key={NavItem.name}>
+                  <Link href={NavItem.route}>
+                    <ItemLink
+                      whileHover={{ fontWeight: "900", letterSpacing: "0px" }}
+                      whileFocus={{ fontWeight: "900", letterSpacing: "0px" }}
+                      transition={{
+                        duration: 0.5,
+                        ease: [0.6, 0.05, -0.01, 0.9],
+                      }}
+                    >
+                      {NavItem.name}
                     </ItemLink>
                   </Link>
                 </li>
               ))}
-            <Link href={"/About"}>
-              <ItemLink whileHover={{ scale: 1.5 }}>About Us</ItemLink>
-            </Link>
-            <Link href={"/Contact"}>
-              <ItemLink whileHover={{ scale: 1.5 }}>Get In Touch</ItemLink>
-            </Link>
           </List>
         </NavBackground>
       </AnimatePresence>
