@@ -60,6 +60,7 @@ const RightBox = styled.div`
   font-size: 2.25rem;
   @media (max-width: 768px) {
     font-size: 1.5rem;
+    width: 40%;
   }
 `;
 
