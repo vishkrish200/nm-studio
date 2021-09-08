@@ -92,7 +92,7 @@ const ProjectsGrid = styled.div`
   margin: 5%;
   gap: 5%;
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, minmax(0, 10fr));
+    grid-template-columns: repeat(1, minmax(0, 10fr));
     margin: 5% 2.5%;
     gap: 2.5%;
   }
