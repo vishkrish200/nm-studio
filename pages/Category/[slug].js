@@ -30,7 +30,6 @@ export async function getServerSideProps({ params }) {
       projects,
       category,
     },
-    revalidate: 1,
   };
 }
 

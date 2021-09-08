@@ -25,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
     text-rendering: optimizeLegibility;
   }`;
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   const { categories } = pageProps;
   return (
     <>
@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }) {
       </GlobalContext.Provider>
     </>
   );
-}
+};
 
 MyApp.getInitialProps = async (ctx) => {
   const appProps = await App.getInitialProps(ctx);
