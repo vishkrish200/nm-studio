@@ -22,9 +22,7 @@ import Arrow from "../../components/Arrow";
 // }
 
 export async function getServerSideProps({ params }) {
-  const categoryResponse = await fetchAPI(`/categories?Name=${params.slug}`);
-  console.log(categoryResponse);
-  let category = categoryResponse[0];
+  const category = (await fetchAPI(`/categories?Name=${params.slug}`))[0];
 
   const projects = await fetchAPI(`/projects?category.Name=${params.slug}`);
   return {
