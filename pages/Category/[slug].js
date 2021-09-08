@@ -8,6 +8,34 @@ import { motion } from "framer-motion";
 import Picture from "../../components/Picture";
 import Arrow from "../../components/Arrow";
 
+// export async function getStaticPaths() {
+//   const categories = await fetchAPI("/categories");
+
+//   return {
+//     paths: categories.map((category) => ({
+//       params: {
+//         slug: category.Name,
+//       },
+//     })),
+//     fallback: true,
+//   };
+// }
+
+export async function getServerSideProps({ params }) {
+  const categoryResponse = await fetchAPI(`/categories?Name=${params.slug}`);
+  console.log(categoryResponse);
+  let category = categoryResponse[0];
+
+  const projects = await fetchAPI(`/projects?category.Name=${params.slug}`);
+  return {
+    props: {
+      projects,
+      category,
+    },
+    revalidate: 1,
+  };
+}
+
 const Page = styled.div`
   background-color: black;
   height: 100%;
@@ -117,6 +145,7 @@ const ProjectSubTitle = styled.div`
 
 export default function CategoryPage({ projects, category, categories }) {
   const HeroImage = getStrapiMedia(category.CoverImage);
+  console.log(categories);
   return (
     <>
       <Page>
@@ -151,29 +180,4 @@ export default function CategoryPage({ projects, category, categories }) {
       </Page>
     </>
   );
-}
-
-export async function getStaticPaths() {
-  const categories = await fetchAPI("/categories");
-
-  return {
-    paths: categories.map((category) => ({
-      params: {
-        slug: category.Name,
-      },
-    })),
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
-  const category = (await fetchAPI(`/categories?Name=${params.slug}`))[0];
-  const projects = await fetchAPI(`/projects?category.Name=${params.slug}`);
-  return {
-    props: {
-      projects,
-      category,
-    },
-    revalidate: 1,
-  };
 }
