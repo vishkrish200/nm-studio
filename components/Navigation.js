@@ -44,12 +44,8 @@ function Navigation({ categories }) {
                 <li key={NavItem.name}>
                   <Link href={NavItem.route}>
                     <ItemLink
-                      whileHover={{ fontWeight: "900", letterSpacing: "0px" }}
-                      whileFocus={{ fontWeight: "900", letterSpacing: "0px" }}
-                      transition={{
-                        duration: 0.5,
-                        ease: [0.6, 0.05, -0.01, 0.9],
-                      }}
+                      whileHover={{ fontWeight: "1000", letterSpacing: "0px" }}
+                      whileFocus={{ fontWeight: "1000", letterSpacing: "0px" }}
                     >
                       {NavItem.name}
                     </ItemLink>

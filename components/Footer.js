@@ -31,8 +31,8 @@ const Column = styled.div`
 
 const SpecialColumn = styled.div`
   display: grid;
-  grid-template-columns: repeat(1, minmax(0, 0.75fr));
-  grid-auto-flow: row;
+  grid-template-rows: repeat(1, minmax(0, 0.75fr));
+  grid-auto-flow: column;
 `;
 
 const Element = styled.div`
@@ -75,8 +75,6 @@ function Footer() {
                     fill-rule="evenodd"
                   />
                 </svg>
-                Facebook
-                {/* <Element>Facebook</Element> */}
               </Element>
               <Element>
                 <svg
@@ -93,7 +91,6 @@ function Footer() {
                     fill-rule="evenodd"
                   />
                 </svg>
-                Instagram
               </Element>
               <Element>
                 <svg
@@ -111,10 +108,7 @@ function Footer() {
                     fill-rule="evenodd"
                   />
                 </svg>
-                Twitter
               </Element>
-              {/* <Element>Instagram</Element>
-              <Element>Twitter</Element> */}
             </SpecialColumn>
           </Column>
           <Column>

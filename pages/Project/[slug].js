@@ -2,7 +2,6 @@ import Navigation from "../../components/Navigation";
 import styled from "styled-components";
 import { fetchAPI } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
-import { useCallback, useState } from "react";
 import Footer from "../../components/Footer";
 
 import "photoswipe/dist/photoswipe.css";
@@ -36,7 +35,6 @@ const ProjectHero = styled.div`
 
 const ProjectTitle = styled.div`
   margin-top: 10%;
-
   color: white;
   font-size: 10rem;
   text-align: center;
@@ -78,10 +76,10 @@ const Picture = styled.div`
   @media (max-width: 768px) {
     grid-row: span 1 / span 1;
     width: 200px;
-    /* min-height: 200px; */
   }
   /* margin: 5%; */
   min-width: 500px;
+  /* width: 100%; */
   /* height: auto; */
   /* height: 100%; */
   min-height: 300px;

@@ -4,8 +4,7 @@ import Link from "next/link";
 
 const Page = styled.div`
   background-color: black;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("https://source.unsplash.com/WLUHO9A_xik/1600x900");
+  background-image: url("/Layer-0.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

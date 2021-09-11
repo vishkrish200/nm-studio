@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import { createContext } from "react";
 import { fetchAPI } from "../lib/api";
 import App from "next/app";
+import Head from "next/head";
 
 export const GlobalContext = createContext({});
 
@@ -17,18 +18,32 @@ const GlobalStyles = createGlobalStyle`
     /* scroll-behavior: smooth; */
   }
   *, *::after, *::before {
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
   }
   body {
-    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
-    font-family:'Gothic',sans-serif;
-    text-rendering: optimizeLegibility;
+    font-family: "Gotham",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* font-family:'Gothic',sans-serif; */
+
   }`;
 
 const MyApp = ({ Component, pageProps }) => {
   const { categories } = pageProps;
   return (
     <>
+      <Head>
+        <link
+          rel="preload"
+          href="/fonts/Gotham/GothamMedium.ttf"
+          as="font"
+          crossOrigin=""
+        />
+        {/* <link
+          rel="preload"
+          href="/fonts/EBGaramond/EBGaramond-Medium.ttf"
+          as="font"
+          crossOrigin=""
+        /> */}
+      </Head>
       <GlobalContext.Provider value={categories}>
         <GlobalStyles />
         <Component {...pageProps} />
