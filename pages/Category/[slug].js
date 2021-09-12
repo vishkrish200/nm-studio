@@ -142,7 +142,6 @@ const ProjectSubTitle = styled.div`
 
 export default function CategoryPage({ projects, category, categories }) {
   const HeroImage = getStrapiMedia(category.CoverImage);
-  console.log(categories);
   return (
     <>
       <Page>
@@ -159,7 +158,7 @@ export default function CategoryPage({ projects, category, categories }) {
         <ProjectsGrid>
           {projects &&
             projects.map((project, index) => (
-              <Link href={`/Project/${project.slug}`}>
+              <Link key={project.slug} href={`/Project/${project.slug}`}>
                 <Project
                   whileHover={{ scale: 1.02 }}
                   index={index}
