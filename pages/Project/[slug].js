@@ -1,14 +1,15 @@
 import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
 import styled from "styled-components";
 import { fetchAPI } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
-import Footer from "../../components/Footer";
 
 import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
 
 import { Gallery, Item } from "react-photoswipe-gallery";
 import Arrow from "../../components/Arrow";
+import { useState } from "react";
 
 const Page = styled.div`
   background-color: black;
@@ -57,31 +58,27 @@ const PictureGallery = styled.div`
   width: auto;
   height: 100%;
   display: grid;
-  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   @media (max-width: 768px) {
     grid-template-rows: repeat(3, minmax(0, 1fr));
   }
-  margin: 10% auto;
-  row-gap: 3%;
-  column-gap: 1.75%;
-  grid-auto-flow: column;
+  margin: 5% auto;
+  row-gap: 1.75%;
+  column-gap: 3%;
+  grid-auto-flow: row;
+  overflow-y: auto;
 `;
 
 const Picture = styled.div`
-  grid-row: ${({ pictureIndex }) => (pictureIndex == 2 ? "span 2 /span 2" : 0)};
+  grid-row: ${({ pictureIndex }) =>
+    pictureIndex % 3 == 0 ? "span 2 /span 2" : "span 1/ span 1"};
   order: ${({ index, pictureIndex }) =>
-    index % 2 != 0 && (pictureIndex == 0 || pictureIndex == 1)
-      ? "9999"
-      : "-9999"};
+    index % 2 == 0 && pictureIndex % 3 != 0 ? "9999" : "-9999"};
   @media (max-width: 768px) {
     grid-row: span 1 / span 1;
     width: 200px;
   }
-  /* margin: 5%; */
   min-width: 500px;
-  /* width: 100%; */
-  /* height: auto; */
-  /* height: 100%; */
   min-height: 300px;
   background-image: url(${({ image }) => image});
   background-position: center;
@@ -91,8 +88,16 @@ const Picture = styled.div`
 
 export default function ProjectPage({ project, categories }) {
   const HeroImage = getStrapiMedia(project.Thumbnail);
-  let tIndex = 0;
-
+  const descrip = [];
+  var tempIndex = 0;
+  var [textState, setTextState] = useState();
+  function textRows() {
+    project.TextRow.map((textfield, textState) => {
+      descrip.push(
+        <ProjectDescription>{textfield.Description}</ProjectDescription>
+      );
+    });
+  }
   return (
     <>
       <Page>
@@ -102,75 +107,39 @@ export default function ProjectPage({ project, categories }) {
           <ProjectSubtitle>{project.SubTitle}</ProjectSubtitle>
           <Arrow marginTop={"10%"} />
         </ProjectHero>
-        {project.TextRow.map((textfield, index) => (
-          <>
-            <ProjectDescription>{textfield.Description}</ProjectDescription>(
-            <Gallery>
-              <PictureGallery>
-                {project.Gallery &&
-                  project.Gallery.slice(
-                    index * 3,
-                    index * 3 + 3 > project.Gallery.length
-                      ? project.Gallery.length
-                      : index * 3 + 3
-                  ).map((picture, pictureIndex) => {
-                    tIndex = index;
-                    return (
-                      <Item
-                        original={getStrapiMedia(picture)}
-                        thumbnail={getStrapiMedia(picture.formats.thumbnail)}
-                        width={picture.width}
-                        height={picture.height}
+        <Gallery>
+          <PictureGallery>
+            {project.Gallery.map((picture, index) => {
+              {
+                if (index == 0 || (index + 1) % 3 == 0) {
+                  return descrip[tempIndex++];
+                }
+              }
+              return (
+                <>
+                  <Item
+                    original={getStrapiMedia(picture)}
+                    thumbnail={getStrapiMedia(picture.formats.thumbnail)}
+                    width={picture.width}
+                    height={picture.height}
+                  >
+                    {({ ref, open }) => (
+                      <Picture
+                        ref={ref}
+                        onClick={open}
+                        index={index / 3}
+                        pictureIndex={index}
+                        image={getStrapiMedia(picture)}
                       >
-                        {({ ref, open }) => (
-                          <Picture
-                            index={index}
-                            pictureIndex={pictureIndex}
-                            image={getStrapiMedia(picture)}
-                            ref={ref}
-                            onClick={open}
-                          ></Picture>
-                        )}
-                      </Item>
-                    );
-                  })}
-              </PictureGallery>
-            </Gallery>
-            )
-          </>
-        ))}
-        {project.Gallery.length > (tIndex + 1) * 3 ? (
-          <Gallery>
-            <PictureGallery>
-              {project.Gallery &&
-                project.Gallery.slice(
-                  (tIndex + 1) * 3,
-                  project.Gallery.length
-                ).map((picture, pictureIndex) => {
-                  return (
-                    <>
-                      <Item
-                        original={getStrapiMedia(picture)}
-                        thumbnail={getStrapiMedia(picture.formats.thumbnail)}
-                        width={picture.width}
-                        height={picture.height}
-                      >
-                        {({ ref, open }) => (
-                          <Picture
-                            ref={ref}
-                            onClick={open}
-                            index={tIndex + 1}
-                            pictureIndex={pictureIndex}
-                            image={getStrapiMedia(picture)}
-                          ></Picture>
-                        )}
-                      </Item>
-                    </>
-                  );
-                })}
-            </PictureGallery>
-          </Gallery>
-        ) : null}
+                        {index}
+                      </Picture>
+                    )}
+                  </Item>
+                </>
+              );
+            })}
+          </PictureGallery>
+        </Gallery>
       </Page>
       <Footer />
     </>
@@ -198,3 +167,126 @@ export async function getStaticProps({ params }) {
     },
   };
 }
+
+{
+  /* <Gallery>
+  {project.TextRow.map((textfield, index) => (
+    <>
+      <ProjectDescription>{textfield.Description}</ProjectDescription>(
+      <PictureGallery>
+        {project.Gallery &&
+          project.Gallery.slice(
+            index * 3,
+            index * 3 + 3 > project.Gallery.length
+              ? project.Gallery.length
+              : index * 3 + 3
+          ).map((picture, pictureIndex) => {
+            tIndex = index;
+            return (
+              <Item
+                original={getStrapiMedia(picture)}
+                thumbnail={getStrapiMedia(picture.formats.thumbnail)}
+                width={picture.width}
+                height={picture.height}
+                key={picture.name}
+              >
+                {({ ref, open }) => (
+                  <Picture
+                    index={index}
+                    pictureIndex={pictureIndex}
+                    image={getStrapiMedia(picture)}
+                    ref={ref}
+                    onClick={open}
+                  ></Picture>
+                )}
+              </Item>
+            );
+          })}
+      </PictureGallery>
+      )
+    </>
+  ))}
+</Gallery>; */
+}
+// {
+//    {project.Gallery.length > (tIndex + 1) * 3
+//           ? project.Gallery &&
+//             project.Gallery.map((item, index) => {
+//               project.Gallery &&
+//                 project.Gallery.map((item, index) => {
+//               roi((index + 1) * 3, tIndex, project.Gallery.length);
+//               return { restOfImages };
+//               if (index < (project.Gallery.length - (tIndex + 1) * 3) / 3 + 1) {
+//                 {
+//                   project.Gallery.slice(
+//                     (tIndex + 1) * 3,
+//                     project.Gallery.length
+//                   ).map((picture, pictureIndex) => {
+//                     return (
+//                       <>
+//                         <Gallery>
+//                           <PictureGallery>
+//                             <Item
+//                               original={getStrapiMedia(picture)}
+//                               thumbnail={getStrapiMedia(
+//                                 picture.formats.thumbnail
+//                               )}
+//                               width={picture.width}
+//                               height={picture.height}
+//                             >
+//                               {({ ref, open }) => (
+//                                 <Picture
+//                                   ref={ref}
+//                                   onClick={open}
+//                                   index={tIndex + 1}
+//                                   pictureIndex={pictureIndex}
+//                                   image={getStrapiMedia(picture)}
+//                                 ></Picture>
+//                               )}
+//                             </Item>
+//                           </PictureGallery>
+//                         </Gallery>
+//                       </>
+//                     );
+//                   });
+//                 }
+//               }
+//             })
+//           : null}
+// }
+
+// var restOfImages = [];
+// function roi(index, tIndex, length) {
+//   if (index < (length - (tIndex + 1) * 3) / 3 + 1) {
+//     <>
+//       {project.Gallery.slice((tIndex + 1) * 3, length).map(
+//         (picture, pictureIndex) => {
+//           restOfImages.push(
+//             <>
+//               <Gallery>
+//                 <PictureGallery>
+//                   <Item
+//                     original={getStrapiMedia(picture)}
+//                     thumbnail={getStrapiMedia(picture.formats.thumbnail)}
+//                     width={picture.width}
+//                     height={picture.height}
+//                   >
+//                     {({ ref, open }) => (
+//                       <Picture
+//                         ref={ref}
+//                         onClick={open}
+//                         index={tIndex + 1}
+//                         pictureIndex={pictureIndex}
+//                         image={getStrapiMedia(picture)}
+//                       />
+//                     )}
+//                   </Item>
+//                 </PictureGallery>
+//               </Gallery>
+//             </>
+//           );
+//         }
+//       )}
+//     </>;
+//   }
+// }

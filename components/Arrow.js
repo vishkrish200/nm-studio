@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const ArrowDiv = styled(motion.i)`
   border: solid white;
-  border-width: 0 0.8vh 0.8vh 0;
+  border-width: 0 0.5vh 0.5vh 0;
   display: inline-block;
   margin-top: ${({ marginTop }) => marginTop};
   padding: 1%;

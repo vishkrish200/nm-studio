@@ -1,11 +1,10 @@
 import Navigation from "../../components/Navigation";
+import Footer from "../../components/Footer";
 import styled from "styled-components";
 import { fetchAPI } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
 import Link from "next/link";
-import Footer from "../../components/Footer";
 import { motion } from "framer-motion";
-import Picture from "../../components/Picture";
 import Arrow from "../../components/Arrow";
 
 // export async function getStaticPaths() {
@@ -23,7 +22,6 @@ import Arrow from "../../components/Arrow";
 
 export async function getServerSideProps({ params }) {
   const category = (await fetchAPI(`/categories?Name=${params.slug}`))[0];
-
   const projects = await fetchAPI(`/projects?category.Name=${params.slug}`);
   return {
     props: {
