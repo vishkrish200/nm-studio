@@ -153,7 +153,10 @@ export default function HomePage({ categories }) {
                   href={`/Category/${category.Name}`}
                   passHref
                 >
-                  <Categories whileHover={{ textDecoration: "underline" }}>
+                  <Categories
+                    whileHover={{ textDecoration: "underline" }}
+                    whileFocus={{ textDecoration: "underline" }}
+                  >
                     {category.Name}
                   </Categories>
                 </Link>

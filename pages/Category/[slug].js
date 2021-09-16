@@ -55,6 +55,7 @@ const HeadingDiv = styled.div`
   color: white;
   padding-top: 5%;
   text-align: center;
+  margin-bottom: 5%;
 `;
 
 const GreekTitle = styled.h1`
@@ -87,7 +88,7 @@ const Definition = styled.h3`
 const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 10fr));
-  margin: 5%;
+  margin: 0 5%;
   gap: 5%;
   @media (max-width: 768px) {
     grid-template-columns: repeat(1, minmax(0, 10fr));

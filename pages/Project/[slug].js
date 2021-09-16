@@ -1,22 +1,18 @@
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
-import styled from "styled-components";
+import Arrow from "../../components/Arrow";
 import { fetchAPI } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
 
 import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
-
 import { Gallery, Item } from "react-photoswipe-gallery";
-import Arrow from "../../components/Arrow";
+
+import styled from "styled-components";
 import { useState } from "react";
 
 const Page = styled.div`
   background-color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   height: 100%;
 `;
 
@@ -28,10 +24,10 @@ const ProjectHero = styled.div`
   background-size: cover;
   width: 100%;
   height: 100vh;
-  flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `;
 
 const ProjectTitle = styled.div`
@@ -54,50 +50,57 @@ const ProjectDescription = styled.div`
   text-align: center;
 `;
 
-const PictureGallery = styled.div`
-  width: auto;
-  height: 100%;
+const ProjectDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-auto-flow: row;
+`;
+const PicturesDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  @media (max-width: 768px) {
-    grid-template-rows: repeat(3, minmax(0, 1fr));
-  }
-  margin: 5% auto;
+  margin: 5%;
   row-gap: 1.75%;
   column-gap: 3%;
   grid-auto-flow: row;
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  @media (max-width: 768px) {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+  }
 `;
 
 const Picture = styled.div`
   grid-row: ${({ pictureIndex }) =>
-    pictureIndex % 3 == 0 ? "span 2 /span 2" : "span 1/ span 1"};
+    pictureIndex % 3 == 0 ? "span 2 /span 2" : 0};
   order: ${({ index, pictureIndex }) =>
     index % 2 == 0 && pictureIndex % 3 != 0 ? "9999" : "-9999"};
-  @media (max-width: 768px) {
-    grid-row: span 1 / span 1;
-    width: 200px;
-  }
-  min-width: 500px;
   min-height: 300px;
   background-image: url(${({ image }) => image});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  @media (max-width: 768px) {
+    grid-row: span 1 / span 1;
+    width: 200px;
+  }
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function ProjectPage({ project, categories }) {
   const HeroImage = getStrapiMedia(project.Thumbnail);
-  const descrip = [];
+  const descriptions = [];
+  const galleries = [];
   var tempIndex = 0;
-  var [textState, setTextState] = useState();
-  function textRows() {
-    project.TextRow.map((textfield, textState) => {
-      descrip.push(
-        <ProjectDescription>{textfield.Description}</ProjectDescription>
+  let lastIndex = 0;
+
+  function getTextRows() {
+    project.TextRow.map((item) => {
+      descriptions.push(
+        <ProjectDescription>{item.Description}</ProjectDescription>
       );
     });
   }
+
   return (
     <>
       <Page>
@@ -107,44 +110,68 @@ export default function ProjectPage({ project, categories }) {
           <ProjectSubtitle>{project.SubTitle}</ProjectSubtitle>
           <Arrow marginTop={"10%"} />
         </ProjectHero>
-        <Gallery>
-          <PictureGallery>
-            {project.Gallery.map((picture, index) => {
-              {
-                if (index == 0 || (index + 1) % 3 == 0) {
-                  return descrip[tempIndex++];
-                }
+        {getTextRows()}
+        <ProjectDiv>
+          <Gallery>
+            {project.Gallery.map((_, index) => {
+              // add edge cases for end of array here
+              if (index % 3 === 0 || index === project.Gallery.length) {
+                let images =
+                  index % 3 === 0
+                    ? project.Gallery.slice(index, index + 3)
+                    : project.Gallery.slice(
+                        lastIndex,
+                        project.Gallery.length + 1
+                      ); // check for out of bounds index here
+                let text = project.TextRow[index / 3]?.Description;
+                lastIndex = index;
+                return (
+                  <ProjectSection
+                    images={images}
+                    text={text}
+                    tIndex={index / 3}
+                  />
+                );
               }
-              return (
-                <>
-                  <Item
-                    original={getStrapiMedia(picture)}
-                    thumbnail={getStrapiMedia(picture.formats.thumbnail)}
-                    width={picture.width}
-                    height={picture.height}
-                  >
-                    {({ ref, open }) => (
-                      <Picture
-                        ref={ref}
-                        onClick={open}
-                        index={index / 3}
-                        pictureIndex={index}
-                        image={getStrapiMedia(picture)}
-                      >
-                        {index}
-                      </Picture>
-                    )}
-                  </Item>
-                </>
-              );
             })}
-          </PictureGallery>
-        </Gallery>
+          </Gallery>
+        </ProjectDiv>
+        <Footer />
       </Page>
-      <Footer />
     </>
   );
 }
+
+const ProjectSection = ({ images, text, tIndex }) => {
+  return (
+    <>
+      <ProjectDescription>{text}</ProjectDescription>
+      <PicturesDiv>
+        {images.map((picture, index) => {
+          return (
+            <Item
+              original={getStrapiMedia(picture)}
+              thumbnail={getStrapiMedia(picture.formats.thumbnail)}
+              width={picture.width}
+              height={picture.height}
+              key={picture.name}
+            >
+              {({ ref, open }) => (
+                <Picture
+                  index={tIndex}
+                  pictureIndex={index / 3}
+                  image={getStrapiMedia(picture)}
+                  ref={ref}
+                  onClick={open}
+                ></Picture>
+              )}
+            </Item>
+          );
+        })}
+      </PicturesDiv>
+    </>
+  );
+};
 
 export async function getStaticPaths() {
   const projects = await fetchAPI("/projects");
@@ -173,7 +200,7 @@ export async function getStaticProps({ params }) {
   {project.TextRow.map((textfield, index) => (
     <>
       <ProjectDescription>{textfield.Description}</ProjectDescription>(
-      <PictureGallery>
+      <PicturesDiv>
         {project.Gallery &&
           project.Gallery.slice(
             index * 3,
@@ -202,7 +229,7 @@ export async function getStaticProps({ params }) {
               </Item>
             );
           })}
-      </PictureGallery>
+      </PicturesDiv>
       )
     </>
   ))}
@@ -225,7 +252,7 @@ export async function getStaticProps({ params }) {
 //                     return (
 //                       <>
 //                         <Gallery>
-//                           <PictureGallery>
+//                           <PicturesDiv>
 //                             <Item
 //                               original={getStrapiMedia(picture)}
 //                               thumbnail={getStrapiMedia(
@@ -244,7 +271,7 @@ export async function getStaticProps({ params }) {
 //                                 ></Picture>
 //                               )}
 //                             </Item>
-//                           </PictureGallery>
+//                           </PicturesDiv>
 //                         </Gallery>
 //                       </>
 //                     );
@@ -264,7 +291,7 @@ export async function getStaticProps({ params }) {
 //           restOfImages.push(
 //             <>
 //               <Gallery>
-//                 <PictureGallery>
+//                 <PicturesDiv>
 //                   <Item
 //                     original={getStrapiMedia(picture)}
 //                     thumbnail={getStrapiMedia(picture.formats.thumbnail)}
@@ -281,7 +308,7 @@ export async function getStaticProps({ params }) {
 //                       />
 //                     )}
 //                   </Item>
-//                 </PictureGallery>
+//                 </PicturesDiv>
 //               </Gallery>
 //             </>
 //           );
@@ -290,3 +317,34 @@ export async function getStaticProps({ params }) {
 //     </>;
 //   }
 // }
+
+//  <PicturesDiv>
+//           {project.Gallery.map((picture, index) => {
+//             return (
+//               <>
+//                 <Item
+//                   original={getStrapiMedia(picture)}
+//                   thumbnail={getStrapiMedia(picture.formats.thumbnail)}
+//                   width={picture.width}
+//                   height={picture.height}
+//                 >
+//                   {({ ref, open }) => (
+//                     <Picture
+//                       ref={ref}
+//                       onClick={open}
+//                       index={index / 3}
+//                       pictureIndex={index}
+//                       image={getStrapiMedia(picture)}
+//                     >
+//                       {index}
+//                     </Picture>
+//                   )}
+//                 </Item>
+//                 {(index == 0 || (index + 1) % 3 == 0) &&
+//                 tempIndex < project.TextRow.length
+//                   ? descriptions[tempIndex++]
+//                   : null}
+//               </>
+//             );
+//           })}
+//         </PicturesDiv>
