@@ -1,8 +1,8 @@
-import Navigation from "../../components/Navigation";
-import Footer from "../../components/Footer";
-import Arrow from "../../components/Arrow";
-import { fetchAPI } from "../../lib/api";
-import { getStrapiMedia } from "../../lib/media";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import Arrow from "@/components/Arrow";
+import { fetchAPI } from "@/lib/api";
+import { getStrapiMedia } from "@/lib/media";
 
 import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
@@ -10,6 +10,8 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 
 import styled from "styled-components";
 import { useState } from "react";
+import Image from "next/image";
+import { H1 } from "@/components/Typography";
 
 const Page = styled.div`
   background-color: black;
@@ -28,6 +30,8 @@ const ProjectHero = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: white;
+  text-align: center;
 `;
 
 const ProjectTitle = styled.div`
@@ -44,7 +48,7 @@ const ProjectSubtitle = styled.div`
 `;
 
 const ProjectDescription = styled.div`
-  margin: 5% 0;
+  /* margin: 5% 0; */
   width: 100%;
   color: white;
   text-align: center;
@@ -54,63 +58,52 @@ const ProjectDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   grid-auto-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10% 0;
 `;
 const PicturesDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 5%;
+  margin: 10%;
   row-gap: 1.75%;
   column-gap: 3%;
   grid-auto-flow: row;
   /* overflow-y: auto; */
   @media (max-width: 768px) {
-    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 `;
 
 const Picture = styled.div`
+  position: relative;
   grid-row: ${({ pictureIndex }) =>
     pictureIndex % 3 == 0 ? "span 2 /span 2" : 0};
   order: ${({ index, pictureIndex }) =>
-    index % 2 == 0 && pictureIndex % 3 != 0 ? "9999" : "-9999"};
+    index == 0 && pictureIndex % 2 == 1 ? "9999" : "-9999"};
   min-height: 300px;
-  background-image: url(${({ image }) => image});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   @media (max-width: 768px) {
+    grid-column: span 1 / span 1;
     grid-row: span 1 / span 1;
-    width: 200px;
   }
-  justify-content: center;
-  align-items: center;
 `;
 
 export default function ProjectPage({ project, categories }) {
   const HeroImage = getStrapiMedia(project.Thumbnail);
-  const descriptions = [];
-  const galleries = [];
-  var tempIndex = 0;
   let lastIndex = 0;
-
-  function getTextRows() {
-    project.TextRow.map((item) => {
-      descriptions.push(
-        <ProjectDescription>{item.Description}</ProjectDescription>
-      );
-    });
-  }
 
   return (
     <>
       <Page>
         <Navigation categories={categories} />
         <ProjectHero imageUrl={HeroImage}>
-          <ProjectTitle>{project.Title}</ProjectTitle>
+          <H1 defaultFontSize={"7.5rem"} tabletFontSize={"4.5rem"} fontWeight={"300"}>
+            {project.Title}
+          </H1>
+          {/* <ProjectTitle>{project.Title}</ProjectTitle> */}
           <ProjectSubtitle>{project.SubTitle}</ProjectSubtitle>
           <Arrow marginTop={"10%"} />
         </ProjectHero>
-        {getTextRows()}
         <ProjectDiv>
           <Gallery>
             {project.Gallery.map((_, index) => {
@@ -159,11 +152,18 @@ const ProjectSection = ({ images, text, tIndex }) => {
               {({ ref, open }) => (
                 <Picture
                   index={tIndex}
-                  pictureIndex={index / 3}
-                  image={getStrapiMedia(picture)}
+                  pictureIndex={index}
                   ref={ref}
                   onClick={open}
-                ></Picture>
+                >
+                  <Image
+                    src={getStrapiMedia(picture)}
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="50% 50%"
+                    priority
+                  />
+                </Picture>
               )}
             </Item>
           );

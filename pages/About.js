@@ -1,16 +1,17 @@
-import Navigation from "../components/Navigation";
+import Navigation from "@/components/Navigation";
 import Link from "next/link";
 import styled from "styled-components";
-import { fetchAPI } from "../lib/api";
-import Footer from "../components/Footer";
-import { getStrapiMedia } from "../lib/media";
-import Arrow from "../components/Arrow";
+import { fetchAPI } from "@/lib/api";
+import Footer from "@/components/Footer";
+import { getStrapiMedia } from "@/lib/media";
+import Arrow from "@/components/Arrow";
 import {
   FaceBookIcon,
   InstagramIcon,
   TwitterIcon,
   WebIcon,
 } from "../public/Icons";
+import Image from "next/image";
 
 const Page = styled.div`
   background-color: black;
@@ -61,7 +62,6 @@ const SubTitle = styled.div`
 
 const TeamDiv = styled.div`
   /* display: flex; */
-  /* align-items: center; */
   text-align: center;
   /* justify-content: center; */
   /* flex-direction: column; */
@@ -70,42 +70,68 @@ const TeamDiv = styled.div`
 
 const CardsDiv = styled.div`
   display: grid;
-  text-align: center;
+  position: relative;
+  justify-content: center;
+  align-items: center;
   /* width: 80%; */
-  margin-inline: 10%;
+  /* margin-inline: 10%; */
   grid-template-columns: repeat(4, minmax(0, 1fr));
   /* gap: 1.5%; */
-  margin: 10% 2.5%;
+  margin: 5% 5%;
 
+  @media (max-width: 1260px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* margin: 10% 2.5%; */
+  }
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin: 5% 2.5%;
+    /* margin: 5% 2.5%; */
   }
-  @media (max-width: 768px) {
+  @media (max-width: 630px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    margin: 5% 2.5%;
+    /* margin: 5% 2.5%; */
   }
-  /* @media (max-width: 480px) {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    margin: 5% 2.5%;
-  } */
 `;
+
 const Card = styled.div`
   margin: 2.5%;
   background-color: #f1f9ff;
-  min-width: 300px;
-  min-height: 500px;
+  width: 20vw;
+  height: 70vh;
   position: relative;
+  @media (max-width: 1260px) {
+    width: 25vw;
+    height: 75vh;
+  }
+  @media (max-width: 1024px) {
+    width: 30vw;
+    height: 80vh;
+
+    /* margin: 5% 2.5%; */
+  }
+  @media (max-width: 630px) {
+    height: 50px;
+
+    /* margin: 5% 2.5%; */
+  }
 `;
 
 const ProfilePicture = styled.div`
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  top: 10%;
-  min-height: 100px;
-  height: 100px;
+  left: 10%;
+  right: 10%;
+  top: 5%;
+  height: 350px;
+  /* @media (max-width: 1260px) {
+    height: 200px;
+  }
+  @media (max-width: 1024px) {
+    height: 100px;
+  }
+  @media (max-width: 630px) {
+    height: 50px;
+  } */
 `;
 const Name = styled.div`
   position: absolute;
@@ -163,10 +189,12 @@ export default function About({ employees, categories }) {
               employees.map((employee) => (
                 <Card>
                   <ProfilePicture>
-                    <img
+                    <Image
                       src={getStrapiMedia(employee.ProfilePicture)}
-                      width="60%"
-                      height="200px"
+                      layout="fill"
+                      objectFit="cover"
+                      objectPosition="50% 50%"
+                      priority
                     />
                   </ProfilePicture>
                   <Name>{employee.Name}</Name>

@@ -1,7 +1,7 @@
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import { createGlobalStyle } from "styled-components";
 import { createContext } from "react";
-import { fetchAPI } from "../lib/api";
+import { fetchAPI } from "@/lib/api";
 import App from "next/app";
 import Head from "next/head";
 
@@ -37,12 +37,6 @@ const MyApp = ({ Component, pageProps }) => {
           as="font"
           crossOrigin=""
         />
-        {/* <link
-          rel="preload"
-          href="/fonts/EBGaramond/EBGaramond-Medium.ttf"
-          as="font"
-          crossOrigin=""
-        /> */}
       </Head>
       <GlobalContext.Provider value={categories}>
         <GlobalStyles />

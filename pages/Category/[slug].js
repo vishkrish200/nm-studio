@@ -1,11 +1,13 @@
-import Navigation from "../../components/Navigation";
-import Footer from "../../components/Footer";
-import styled from "styled-components";
-import { fetchAPI } from "../../lib/api";
-import { getStrapiMedia } from "../../lib/media";
-import Link from "next/link";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import Arrow from "@/components/Arrow";
+import { fetchAPI } from "@/lib/api";
+import { getStrapiMedia } from "@/lib/media";
 import { motion } from "framer-motion";
-import Arrow from "../../components/Arrow";
+import styled from "styled-components";
+import Link from "next/link";
+import Image from "next/image";
+import { H1, H2, H3, Paragraph } from "@/components/Typography";
 
 // export async function getStaticPaths() {
 //   const categories = await fetchAPI("/categories");
@@ -32,8 +34,10 @@ export async function getServerSideProps({ params }) {
 }
 
 const Page = styled.div`
+  position: relative;
   background-color: black;
   height: 100%;
+  z-index: 1;
 `;
 
 const HeroDiv = styled.div`
@@ -46,7 +50,7 @@ const HeroDiv = styled.div`
   width: 100vw;
 `;
 
-const HeadingDiv = styled.div`
+const HeroTextDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,63 +62,39 @@ const HeadingDiv = styled.div`
   margin-bottom: 5%;
 `;
 
-const GreekTitle = styled.h1`
-  margin: 0;
-  font-size: 10vh;
-`;
-
-const Title = styled.h1`
-  margin: 0;
-  padding: 0;
-  font-size: 10rem;
-  ::first-letter {
-    color: red;
-  }
-`;
-
-const SubTitle = styled.h2`
-  margin: 0;
-  font-style: italic;
-  font-size: 5vh;
-  font-weight: bold;
-`;
-
-const Definition = styled.h3`
-  margin: 0;
-  font-size: 5vh;
-  font-weight: 3;
+const GridWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-auto-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10% 0;
 `;
 
 const ProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 10fr));
-  margin: 0 5%;
+  margin: 5%;
   gap: 5%;
   @media (max-width: 768px) {
     grid-template-columns: repeat(1, minmax(0, 10fr));
     margin: 5% 2.5%;
-    gap: 2.5%;
+    /* gap: 2.5%; */
   }
-  overflow-x: hidden;
-  overflow-y: auto;
 `;
 
 const Project = styled(motion.div)`
   grid-column: ${({ index }) => ((index + 1) % 3 == 0 ? "span 2 /span 2" : 0)};
   @media (max-width: 768px) {
     grid-column: span 1 / span 1;
-    min-height: 300px;
+    height: 300px;
   }
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  height: 400px;
-  background-image: url(${({ image }) => image});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  height: 50vh;
 `;
 
 const ProjectTitle = styled.div`
@@ -146,31 +126,55 @@ export default function CategoryPage({ projects, category, categories }) {
       <Page>
         <Navigation categories={categories} />
         <HeroDiv imageUrl={HeroImage}>
-          <HeadingDiv>
-            <GreekTitle>{category.GreekTitle}</GreekTitle>
-            <Title>{category.Name}</Title>
-            <SubTitle>noun</SubTitle>
-            <Definition>{category.Definition}</Definition>
+          <HeroTextDiv>
+            <H2 defaultFontSize={"4.5rem"} tabletFontSize={"2.5rem"}>
+              {category.GreekTitle}
+            </H2>
+            <H1
+              defaultFontSize={"7.5rem"}
+              tabletFontSize={"4.5rem"}
+              firstLetter={"red"}
+            >
+              {category.Name}
+            </H1>
+            <H2
+              defaultFontSize={"2.5rem"}
+              tabletFontSize={"1.5rem"}
+              italic={"italic"}
+              bold={"bold"}
+            >
+              noun
+            </H2>
+            <H3 defaultFontSize={"2.5rem"} tabletFontSize={"1.5rem"}>
+              {category.Definition}
+            </H3>
             <Arrow marginTop={"10%"} />
-          </HeadingDiv>
+          </HeroTextDiv>
         </HeroDiv>
-        <ProjectsGrid>
-          {projects &&
-            projects.map((project, index) => (
-              <Link key={project.slug} href={`/Project/${project.slug}`}>
-                <Project
-                  whileHover={{ scale: 1.02 }}
-                  index={index}
-                  image={getStrapiMedia(project.Thumbnail)}
-                >
-                  <ProjectTitle>
-                    {project.Title}
-                    <ProjectSubTitle>{project.SubTitle}</ProjectSubTitle>
-                  </ProjectTitle>
-                </Project>
-              </Link>
-            ))}
-        </ProjectsGrid>
+        <GridWrapper>
+          <ProjectsGrid>
+            {projects &&
+              projects.map((project, index) => (
+                <Link key={project.slug} href={`/Project/${project.slug}`}>
+                  <Project index={index} whileHover={{ scale: 1.02 }}>
+                    <Image
+                      src={getStrapiMedia(project.Thumbnail)}
+                      layout="fill"
+                      // width={project.Thumbnail.width}
+                      // height={project.Thumbnail.height}
+                      objectFit="cover"
+                      objectPosition="50% 50%"
+                      priority
+                    />
+                    <ProjectTitle>
+                      {project.Title}
+                      <ProjectSubTitle>{project.SubTitle}</ProjectSubTitle>
+                    </ProjectTitle>
+                  </Project>
+                </Link>
+              ))}
+          </ProjectsGrid>
+        </GridWrapper>
         <Footer />
       </Page>
     </>

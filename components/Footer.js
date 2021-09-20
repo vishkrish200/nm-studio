@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import Logo1 from "../Logo1";
 
-import { FaceBookIcon, InstagramIcon, TwitterIcon } from "../public/Icons";
-
 const FooterDiv = styled.div`
   position: relative;
   bottom: 0;
-  top: 0;
   left: 0;
   background-color: black;
   color: white;
   min-height: 10%;
-  margin-top: auto;
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const Columns = styled.div`

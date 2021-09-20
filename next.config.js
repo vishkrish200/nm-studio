@@ -6,6 +6,7 @@ module.exports = {
       "source.unsplash.com",
       "localhost",
       "backend-nmstudio-4ejoh.ondigitalocean.app",
+      "142.93.126.12",
     ],
   },
 

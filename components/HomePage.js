@@ -27,9 +27,9 @@ const HeroImage = styled(motion.div)`
 const HeroTitle = styled(motion.div)`
   margin-top: 5%;
   color: white;
-  font-size: 9.25rem;
+  font-size: 9rem;
   @media (max-width: 768px) {
-    font-size: 5.75rem;
+    font-size: 5.5rem;
   }
   text-align: center;
   font-weight: lighter;

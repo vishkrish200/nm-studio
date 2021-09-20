@@ -7,7 +7,7 @@ import {
   NavBackground,
   ItemLink,
   List,
-} from "../styles/NavigationStyles";
+} from "@/styles/NavigationStyles";
 import { AnimatePresence } from "framer-motion";
 import { Cross as Hamburger } from "hamburger-react";
 import Logo1 from "../Logo1";
