@@ -5,8 +5,8 @@ module.exports = {
       "drive.google.com",
       "source.unsplash.com",
       "localhost",
-      "backend-nmstudio-4ejoh.ondigitalocean.app",
       "142.93.126.12",
+      "backend.nmstudio.design",
     ],
   },
 
