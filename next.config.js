@@ -6,7 +6,7 @@ module.exports = {
       "source.unsplash.com",
       "localhost",
       "142.93.126.12",
-      "backend.nmstudio.design",
+      "dashboard.nmstudio.design",
     ],
   },
 
