@@ -37,6 +37,7 @@ const MyApp = ({ Component, pageProps }) => {
           as="font"
           crossOrigin=""
         />
+        <title>NM Studio - Design is Everything</title>
       </Head>
       <GlobalContext.Provider value={categories}>
         <GlobalStyles />

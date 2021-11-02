@@ -30,6 +30,10 @@ const HeroTitle = styled(motion.div)`
   font-size: 9rem;
   @media (max-width: 768px) {
     font-size: 5.5rem;
+    padding-bottom: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 3.5rem;
   }
   text-align: center;
   font-weight: lighter;
@@ -41,9 +45,12 @@ const HeroTitle = styled(motion.div)`
 const HeroSubTitle = styled(motion.div)`
   color: white;
   font-size: 1rem;
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+  }
   text-align: center;
   font-weight: lighter;
-  width: 50%;
+  width: 60%;
 `;
 
 const variants = {
@@ -63,7 +70,7 @@ function Hero() {
         >
           We Are
           <br />
-          <b> NM Studio</b>
+          <b>NM Studio</b>
         </HeroTitle>
         <HeroSubTitle
           initial="hidden"
@@ -76,10 +83,9 @@ function Hero() {
           }}
         >
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et
+          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat
         </HeroSubTitle>
-        <Arrow marginTop={"6%"} />
+        <Arrow marginTop={"10%"} />
       </HeroImage>
     </>
   );
@@ -102,7 +108,13 @@ const LeftBox = styled.div`
   align-items: flex-end;
   flex-direction: column;
   width: 50%;
-  height: 40vh;
+  height: 30rem;
+  @media (max-width: 768px) {
+    height: 15rem;
+  }
+  /* @media (max-width: 480px) {
+    font-size: 3.5rem;
+  } */
   border-right-style: solid;
   border-color: white;
   text-align: right;
@@ -125,7 +137,7 @@ const RightBox = styled.div`
   align-items: flex-start;
   flex-direction: column;
   text-align: left;
-  height: 60vh;
+  height: 35rem;
   padding-left: 5%;
   margin-left: 1%;
   width: 50%;
@@ -135,6 +147,7 @@ const RightBox = styled.div`
   @media (max-width: 768px) {
     font-size: 1.5rem;
     width: 40%;
+    height: 22.5rem;
   }
 `;
 

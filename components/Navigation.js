@@ -7,6 +7,7 @@ import {
   NavBackground,
   ItemLink,
   List,
+  ListItem,
 } from "@/styles/NavigationStyles";
 import { AnimatePresence } from "framer-motion";
 import { Cross as Hamburger } from "hamburger-react";
@@ -33,34 +34,32 @@ function Header({ sidebarOpen, handleClick }) {
     };
   }, [lastYPos]);
   return (
-    <>
-      <TopNav
-        initial={{ y: "-100%" }}
-        exit={{ y: "-100%" }}
-        animate={{
-          y: lastYPos == 0 ? 0 : shouldShowActions ? 0 : "-100%",
-        }}
-        transition={{ duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] }}
-      >
-        <LogoDiv>
-          <Link key="Home" href="/" passHref>
-            <a>
-              <Logo1 />
-            </a>
-          </Link>
-        </LogoDiv>
-        <MenuDiv>
-          <Hamburger
-            toggled={sidebarOpen}
-            toggle={handleClick}
-            size={48}
-            color="#ffffff"
-            label="Show Menu"
-            duration={0.8}
-          />
-        </MenuDiv>
-      </TopNav>
-    </>
+    <TopNav
+      initial={{ y: "-100%" }}
+      exit={{ y: "-100%" }}
+      animate={{
+        y: lastYPos == 0 ? 0 : shouldShowActions ? 0 : "-100%",
+      }}
+      transition={{ duration: 0.8, ease: [0.6, 0.05, -0.01, 0.9] }}
+    >
+      <LogoDiv>
+        <Link key="Home" href="/" passHref>
+          <a>
+            <Logo1 />
+          </a>
+        </Link>
+      </LogoDiv>
+      <MenuDiv>
+        <Hamburger
+          toggled={sidebarOpen}
+          toggle={handleClick}
+          size={48}
+          color="#ffffff"
+          label="Show Menu"
+          duration={0.8}
+        />
+      </MenuDiv>
+    </TopNav>
   );
 }
 
@@ -100,16 +99,15 @@ function Navigation({ categories }) {
           <List>
             {NavItems &&
               NavItems.map((NavItem) => (
-                <li key={NavItem.name}>
-                  <Link href={NavItem.route}>
-                    <ItemLink
-                      whileHover={{ fontWeight: "1000", letterSpacing: "0px" }}
-                      whileFocus={{ fontWeight: "1000", letterSpacing: "0px" }}
-                    >
-                      {NavItem.name}
-                    </ItemLink>
+                <ListItem
+                  key={NavItem.name}
+                  whileHover={{ fontWeight: "1000", letterSpacing: "0px" }}
+                  whileFocus={{ fontWeight: "1000", letterSpacing: "0px" }}
+                >
+                  <Link href={NavItem.route} passHref>
+                    <ItemLink>{NavItem.name}</ItemLink>
                   </Link>
-                </li>
+                </ListItem>
               ))}
           </List>
         </NavBackground>

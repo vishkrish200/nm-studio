@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 import { H1, H2, H3, Paragraph } from "@/components/Typography";
 
 // export async function getStaticPaths() {
@@ -68,7 +69,8 @@ const GridWrapper = styled.div`
   grid-auto-flow: row;
   justify-content: center;
   align-items: center;
-  margin: 10% 0;
+  /* margin: 10% 0; */
+  overflow: auto;
 `;
 
 const ProjectsGrid = styled.div`
@@ -123,16 +125,20 @@ export default function CategoryPage({ projects, category, categories }) {
   const HeroImage = getStrapiMedia(category.CoverImage);
   return (
     <>
+      <Head>
+        <title>{category.Name} - NM Studio</title>
+      </Head>
       <Page>
         <Navigation categories={categories} />
         <HeroDiv imageUrl={HeroImage}>
           <HeroTextDiv>
-            <H2 defaultFontSize={"4.5rem"} tabletFontSize={"2.5rem"}>
+            <H2 defaultFontSize={"4.5rem"} tabletFontSize={"1.5rem"}>
               {category.GreekTitle}
             </H2>
             <H1
               defaultFontSize={"7.5rem"}
               tabletFontSize={"4.5rem"}
+              mobileFontSize={"3rem"}
               firstLetter={"red"}
             >
               {category.Name}
@@ -140,12 +146,17 @@ export default function CategoryPage({ projects, category, categories }) {
             <H2
               defaultFontSize={"2.5rem"}
               tabletFontSize={"1.5rem"}
+              mobileFontSize={"1rem"}
               italic={"italic"}
               bold={"bold"}
             >
               noun
             </H2>
-            <H3 defaultFontSize={"2.5rem"} tabletFontSize={"1.5rem"}>
+            <H3
+              defaultFontSize={"2.5rem"}
+              tabletFontSize={"1.5rem"}
+              mobileFontSize={"1rem"}
+            >
               {category.Definition}
             </H3>
             <Arrow marginTop={"10%"} />

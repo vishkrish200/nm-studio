@@ -15,6 +15,9 @@ const StyledH1 = styled.h1`
   @media (max-width: 768px) {
     font-size: ${({ tabletFontSize }) => tabletFontSize};
   }
+  @media (max-width: 480px) {
+    font-size: ${({ mobileFontSize }) => mobileFontSize};
+  }
   ::first-letter {
     color: ${({ firstLetter }) => firstLetter};
   }
@@ -27,6 +30,9 @@ const StyledH2 = styled.h2`
   @media (max-width: 768px) {
     font-size: ${({ tabletFontSize }) => tabletFontSize};
   }
+  @media (max-width: 480px) {
+    font-size: ${({ mobileFontSize }) => mobileFontSize};
+  }
   font-style: ${({ italic }) => italic};
   font-weight: ${({ bold }) => bold};
 `;
@@ -37,11 +43,23 @@ const StyledH3 = styled.h3`
   @media (max-width: 768px) {
     font-size: ${({ tabletFontSize }) => tabletFontSize};
   }
+  @media (max-width: 480px) {
+    font-size: ${({ mobileFontSize }) => mobileFontSize};
+  }
 `;
 
-export function Paragraph({ defaultFontSize, tabletFontSize, children }) {
+export function Paragraph({
+  defaultFontSize,
+  tabletFontSize,
+  mobileFontSize,
+  children,
+}) {
   return (
-    <StyledP defaultFontSize={defaultFontSize} tabletFontSize={tabletFontSize}>
+    <StyledP
+      defaultFontSize={defaultFontSize}
+      tabletFontSize={tabletFontSize}
+      mobileFontSize={mobileFontSize}
+    >
       {children}
     </StyledP>
   );
@@ -50,6 +68,7 @@ export function Paragraph({ defaultFontSize, tabletFontSize, children }) {
 export function H1({
   defaultFontSize,
   tabletFontSize,
+  mobileFontSize,
   firstLetter,
   fontWeight,
   children,
@@ -58,6 +77,7 @@ export function H1({
     <StyledH1
       defaultFontSize={defaultFontSize}
       tabletFontSize={tabletFontSize}
+      mobileFontSize={mobileFontSize}
       firstLetter={firstLetter}
       fontWeight={fontWeight}
     >
@@ -68,6 +88,7 @@ export function H1({
 export function H2({
   defaultFontSize,
   tabletFontSize,
+  mobileFontSize,
   italic,
   bold,
   children,
@@ -76,6 +97,7 @@ export function H2({
     <StyledH2
       defaultFontSize={defaultFontSize}
       tabletFontSize={tabletFontSize}
+      mobileFontSize={mobileFontSize}
       italic={italic}
       bold={bold}
     >
@@ -83,9 +105,18 @@ export function H2({
     </StyledH2>
   );
 }
-export function H3({ defaultFontSize, tabletFontSize, children }) {
+export function H3({
+  defaultFontSize,
+  tabletFontSize,
+  mobileFontSize,
+  children,
+}) {
   return (
-    <StyledH3 defaultFontSize={defaultFontSize} tabletFontSize={tabletFontSize}>
+    <StyledH3
+      defaultFontSize={defaultFontSize}
+      tabletFontSize={tabletFontSize}
+      mobileFontSize={mobileFontSize}
+    >
       {children}
     </StyledH3>
   );

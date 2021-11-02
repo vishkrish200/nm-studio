@@ -5,6 +5,8 @@ import { fetchAPI } from "@/lib/api";
 import Footer from "@/components/Footer";
 import { getStrapiMedia } from "@/lib/media";
 import Arrow from "@/components/Arrow";
+import Head from "next/head";
+
 import {
   FaceBookIcon,
   InstagramIcon,
@@ -74,7 +76,7 @@ const CardsDiv = styled.div`
   justify-content: center;
   align-items: center;
   /* width: 80%; */
-  /* margin-inline: 10%; */
+  margin-inline: 10%;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   /* gap: 1.5%; */
   margin: 5% 5%;
@@ -166,6 +168,9 @@ const Links = styled.div`
 export default function About({ employees, categories }) {
   return (
     <>
+      <Head>
+        <title>About Us - NM Studio</title>
+      </Head>
       <Navigation categories={categories} />
       <Page>
         <Hero>

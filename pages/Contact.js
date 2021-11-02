@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import styled from "styled-components";
 import Link from "next/link";
+import Head from "next/head";
 
 const Page = styled.div`
   background-color: black;
@@ -26,13 +27,20 @@ const Title = styled.div`
   text-align: center;
   font-size: 8.25rem;
   font-weight: bold;
+  @media (max-width: 768px) {
+    font-size: 4rem;
+  }
 `;
 
 const Address = styled.div`
   color: white;
   text-align: center;
   font-size: 2rem;
-  line-height: 8vh;
+  line-height: 3rem;
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
 `;
 
 const MapDiv = styled.div`
@@ -43,11 +51,17 @@ const MapDiv = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  @media (max-width: 768px) {
+    height: 50vh;
+  }
 `;
 
 export default function Contact({ categories }) {
   return (
     <>
+      <Head>
+        <title>Contact Us - NM Studio</title>
+      </Head>
       <Page>
         <HeroDiv>
           <Navigation categories={categories} />
