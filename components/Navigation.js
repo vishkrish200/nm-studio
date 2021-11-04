@@ -49,6 +49,7 @@ function Header({ sidebarOpen, handleClick }) {
           </a>
         </Link>
       </LogoDiv>
+      {/* <div style={{ flexGrow: "1" }}></div> */}
       <MenuDiv>
         <Hamburger
           toggled={sidebarOpen}

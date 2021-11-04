@@ -6,7 +6,7 @@ export const TopNav = styled(motion.div)`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 70px;
+  height: 100px;
   z-index: 1000;
   display: flex;
   justify-content: space-between;
@@ -19,6 +19,7 @@ export const LogoDiv = styled.div`
   top: 2vh;
   left: 2vw; */
   cursor: pointer;
+  /* height: auto; */
   /* padding-top: 0.05%;
   @media (max-width: 768px) {
     width: 50%;
@@ -75,7 +76,7 @@ export const ListItem = styled(motion.li)`
   display: flex;
   font-size: 3.25rem;
   @media (max-width: 768px) {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
   color: white;
   justify-content: center;

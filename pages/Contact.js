@@ -25,8 +25,8 @@ const HeroDiv = styled.div`
 const Title = styled.div`
   color: white;
   text-align: center;
-  font-size: 8.25rem;
-  font-weight: bold;
+  font-size: 7.5rem;
+  /* font-weight: bold; */
   @media (max-width: 768px) {
     font-size: 4rem;
   }

@@ -33,7 +33,7 @@ const HeroTitle = styled(motion.div)`
     padding-bottom: 1.5rem;
   }
   @media (max-width: 480px) {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
   }
   text-align: center;
   font-weight: lighter;
@@ -45,8 +45,9 @@ const HeroTitle = styled(motion.div)`
 const HeroSubTitle = styled(motion.div)`
   color: white;
   font-size: 1rem;
+  /* margin-bottom: 5%; */
   @media (max-width: 768px) {
-    font-size: 0.85rem;
+    margin-bottom: 15%;
   }
   text-align: center;
   font-weight: lighter;
@@ -137,7 +138,7 @@ const RightBox = styled.div`
   align-items: flex-start;
   flex-direction: column;
   text-align: left;
-  height: 35rem;
+  height: 40rem;
   padding-left: 5%;
   margin-left: 1%;
   width: 50%;

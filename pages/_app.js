@@ -15,8 +15,11 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
     scrollbar-width: none;
     overflow-x:none;
-    /* scroll-behavior: smooth; */
+    scroll-behavior: smooth;
   }
+  strong, b {
+    font-weight: bold;
+}
   *, *::after, *::before {
     box-sizing: border-box;
   }

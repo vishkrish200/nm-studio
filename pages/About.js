@@ -56,7 +56,7 @@ const Title = styled.div`
 const SubTitle = styled.div`
   font-size: 1rem;
   text-align: center;
-  width: 60%;
+  width: 70%;
   @media (max-width: 768px) {
     font-size: 0.8rem;
   }
@@ -77,45 +77,24 @@ const CardsDiv = styled.div`
   align-items: center;
   /* width: 80%; */
   margin-inline: 10%;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  @media (max-width: 480px) and (max-width: 767px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   /* gap: 1.5%; */
   margin: 5% 5%;
-
-  @media (max-width: 1260px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    /* margin: 10% 2.5%; */
-  }
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    /* margin: 5% 2.5%; */
-  }
-  @media (max-width: 630px) {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    /* margin: 5% 2.5%; */
-  }
+  overflow-y: scroll;
 `;
 
 const Card = styled.div`
   margin: 2.5%;
   background-color: #f1f9ff;
-  width: 20vw;
+  /* width: 20vw; */
   height: 70vh;
   position: relative;
-  @media (max-width: 1260px) {
-    width: 25vw;
-    height: 75vh;
-  }
-  @media (max-width: 1024px) {
-    width: 30vw;
-    height: 80vh;
-
-    /* margin: 5% 2.5%; */
-  }
-  @media (max-width: 630px) {
-    height: 50px;
-
-    /* margin: 5% 2.5%; */
-  }
 `;
 
 const ProfilePicture = styled.div`
@@ -125,15 +104,6 @@ const ProfilePicture = styled.div`
   right: 10%;
   top: 5%;
   height: 350px;
-  /* @media (max-width: 1260px) {
-    height: 200px;
-  }
-  @media (max-width: 1024px) {
-    height: 100px;
-  }
-  @media (max-width: 630px) {
-    height: 50px;
-  } */
 `;
 const Name = styled.div`
   position: absolute;
@@ -181,9 +151,7 @@ export default function About({ employees, categories }) {
             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
             erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
             et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed diam voluptua.
+            Lorem ipsum dolor sit amet.
           </SubTitle>
           <Arrow marginTop={"10%"} />
         </Hero>
