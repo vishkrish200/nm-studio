@@ -5,6 +5,7 @@ import { fetchAPI } from "@/lib/api";
 import Footer from "@/components/Footer";
 import { getStrapiMedia } from "@/lib/media";
 import Arrow from "@/components/Arrow";
+import { H1, H2, H3, Paragraph } from "@/components/Typography";
 import Head from "next/head";
 
 import {
@@ -77,11 +78,15 @@ const CardsDiv = styled.div`
   align-items: center;
   /* width: 80%; */
   margin-inline: 10%;
-  @media (max-width: 480px) and (max-width: 767px) {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   /* gap: 1.5%; */
@@ -144,7 +149,9 @@ export default function About({ employees, categories }) {
       <Navigation categories={categories} />
       <Page>
         <Hero>
-          <TopSubTitle>A little more about</TopSubTitle>
+          <H2 defaultFontSize={"3rem"} tabletFontSize={"1.5rem"}>
+            A little more about
+          </H2>
           <Title marginBottom={"0%"}>NM Studio</Title>
           <SubTitle>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
@@ -156,7 +163,14 @@ export default function About({ employees, categories }) {
           <Arrow marginTop={"10%"} />
         </Hero>
         <TeamDiv>
-          <Title marginBottom={"10%"}>Meet the Team</Title>
+          {/* <Title marginBottom={"10%"}>Meet the Team</Title> */}
+          <H1
+            defaultFontSize={"7rem"}
+            tabletFontSize={"5.5rem"}
+            mobileFontSize={"4.5rem"}
+          >
+            Meet the Team
+          </H1>
           <CardsDiv>
             {employees &&
               employees.map((employee) => (
