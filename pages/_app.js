@@ -44,6 +44,7 @@ const MyApp = ({ Component, pageProps }) => {
           as="font"
           crossOrigin=""
         />
+        <link rel="shortcut icon" href="/NM_Studio_Logo(OnBlack) (1).svg" />
         <title>NM Studio - Design is Everything</title>
       </Head>
       <GlobalContext.Provider value={categories}>
